@@ -17,6 +17,10 @@
     {
       "title": "Über uns",
       "link": "/about"
+    },
+    {
+      "title": "Presse",
+      "link": "/presse"
     }
   ],
   "contactLinks": [
