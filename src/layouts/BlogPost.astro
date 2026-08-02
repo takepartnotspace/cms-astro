@@ -1,12 +1,9 @@
 ---
-import { Icon } from 'astro-icon/components';
 import Base from './Base.astro';
 
 interface Props {
 	title: string;
 	description: string;
-	pubDate: Date;
-	updatedDate?: Date;
 	heroImage?: string | null;
 }
 
@@ -14,14 +11,30 @@ const { title, description, heroImage } = Astro.props;
 ---
 
 <Base title={title} description={description} image={heroImage ?? undefined}>
-	<div class="mx-auto max-w-4xl px-6 pt-8">
-		<a
-			href="/blog"
-			class="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-		>
-			<Icon name="tabler:arrow-left" size={16} />
-			Back to blog
-		</a>
-	</div>
-	<slot />
+	<article class="w-full text-left block">
+		{/* Hero-Bild mit großer, mittig zentrierter Overlay-Headline */}
+		<div class="mx-auto max-w-4xl px-6 pt-6">
+			<div class="relative h-[380px] w-full overflow-hidden rounded-3xl md:h-[520px]">
+				{heroImage ? (
+					<img
+						src={heroImage}
+						alt={title}
+						class="h-full w-full object-cover"
+					/>
+				) : (
+					<div class="h-full w-full bg-neutral-800" />
+				)}
+				<div class="absolute inset-0 flex items-center justify-center bg-black/50 p-6 text-center md:p-12">
+					<h1 class="m-0 text-center text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl leading-tight max-w-3xl">
+						{title}
+					</h1>
+				</div>
+			</div>
+		</div>
+
+		{/* Haupttext Slot */}
+		<div class="mx-auto max-w-4xl px-6 pt-8 pb-12 text-left block">
+			<slot />
+		</div>
+	</article>
 </Base>

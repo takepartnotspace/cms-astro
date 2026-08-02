@@ -1,4 +1,9 @@
 import CodeBlock from './CodeBlock.astro';
 import YouTubeEmbed from './YouTubeEmbed.astro';
+import Tooltip from './Tooltip.astro';
 
-export const mdxComponents = { YouTubeEmbed, code_block: CodeBlock };
+export const mdxComponents = {
+  CodeBlock,
+  YouTubeEmbed,
+  Tooltip,
+};

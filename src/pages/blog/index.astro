@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import { getConfig, listBlogs } from '../../lib/data';
 
 const posts = await listBlogs();
@@ -11,22 +10,35 @@ const config = (await getConfig()).data?.config ?? null;
 	title={config?.seo?.title ?? 'Blog'}
 	description={config?.seo?.description ?? 'Welcome to my website!'}
 >
-	<main class="mx-auto max-w-5xl px-6 py-12">
-		<h1 class="mb-8 text-4xl font-semibold tracking-tight">Blog</h1>
-		<ul class="grid list-none gap-6 p-0 sm:grid-cols-2">
+	<main class="mx-auto max-w-6xl px-6 py-12">
+
+		<!-- 3 Spalten in einer Reihe ab md -->
+		<ul class="grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-3">
 			{posts.map((post) => (
 				<li>
-					<a href={`/blog/${post._sys.filename}/`} class="group block overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md">
-						{post.heroImage && (
-							<img width={720} height={360} src={post.heroImage} alt={post.title ?? ''} class="aspect-video w-full object-cover" />
+					<a href={`/blog/${post._sys.filename}/`} class="group relative block overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:shadow-md">
+						{/* Hohes Bildformat (aspect-[3/4]) */}
+						{post.heroImage ? (
+							<div class="relative aspect-[3/4] w-full overflow-hidden">
+								<img 
+									width={720} 
+									height={960} 
+									src={post.heroImage} 
+									alt={post.title ?? ''} 
+									class="size-full object-cover transition-transform duration-300 group-hover:scale-105" 
+								/>
+								{/* Overlay für Lesbarkeit */}
+								<div class="absolute inset-0 bg-black/50 transition-colors group-hover:bg-black/40"></div>
+							</div>
+						) : (
+							<div class="aspect-[3/4] w-full bg-neutral-900"></div>
 						)}
-						<div class="p-6">
-							<h2 class="font-semibold group-hover:underline">{post.title}</h2>
-							{post.pubDate && (
-								<p class="mt-1 text-sm text-muted-foreground">
-									<FormattedDate date={new Date(post.pubDate)} />
-								</p>
-							)}
+
+						{/* Überlagerte Überschrift */}
+						<div class="absolute inset-0 flex items-center justify-center p-6 text-center">
+							<h2 class="text-balance text-2xl font-extrabold tracking-tight text-white drop-shadow-md group-hover:underline lg:text-3xl">
+								{post.title}
+							</h2>
 						</div>
 					</a>
 				</li>

@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import { getConfig } from '../lib/data';
 import { islands } from '../lib/islands';
+import Noise from '../components/ui/Noise.astro';
 
 interface Props {
 	title: string;
@@ -22,10 +23,16 @@ const config = (await getConfig()).data?.config ?? null;
 		<BaseHead title={title} description={description} image={image} />
 	</head>
 	<body>
+		<Noise />
+
 		<TinaIsland name="global" wrapper={islands.global.wrapper}>
 			<Header config={config} />
 		</TinaIsland>
-		<slot />
+
+		<main class="md:pt-3">
+			<slot />
+		</main>
+
 		<TinaIsland name="global-footer" wrapper={islands['global-footer'].wrapper}>
 			<Footer config={config} />
 		</TinaIsland>

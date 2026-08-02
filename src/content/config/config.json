@@ -7,24 +7,20 @@
   },
   "nav": [
     {
-      "title": "Home",
+      "title": "Initiative",
       "link": "/"
     },
     {
-      "title": "Städte & Aktionen",
+      "title": "Mitwirkende",
+      "link": "/mitwirkende"
+    },
+    {
+      "title": "Orte & Aktionen",
       "link": "/blog"
     },
     {
-      "title": "Über uns",
-      "link": "/about"
-    },
-    {
-      "title": "Presse",
-      "link": "/presse"
-    },
-    {
-      "title": "Unterstützer",
-      "link": "/Untersttzer"
+      "title": "Fragen & Antworten",
+      "link": "/faq"
     }
   ],
   "contactLinks": [
@@ -32,6 +28,11 @@
       "title": "Instagram",
       "link": "https://www.instagram.com/takepartnotspace/",
       "icon": "tabler:brand-instagram"
+    },
+    {
+      "title": "Whats App",
+      "link": "http://chat.whatsapp.com/Gsljsd9mcgLBuASXdRlOT0",
+      "icon": "tabler:brand-whatsapp"
     },
     {
       "title": "E-Mail",

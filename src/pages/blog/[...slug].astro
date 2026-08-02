@@ -18,8 +18,6 @@ if (!data) return new Response('Not Found', { status: 404 });
 const layoutProps = {
 	title: data.title ?? '',
 	description: data.description ?? '',
-	pubDate: data.pubDate ? new Date(data.pubDate) : new Date(),
-	updatedDate: data.updatedDate ? new Date(data.updatedDate) : undefined,
 	heroImage: data.heroImage ?? null,
 };
 ---

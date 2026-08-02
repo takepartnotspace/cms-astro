@@ -3,21 +3,55 @@ import { BlogCollection } from "./collections/blog";
 import { GlobalConfigCollection } from "./collections/global-config";
 import { PageCollection } from "./collections/page";
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.WORKERS_CI_BRANCH || // Cloudflare Workers Builds
-  process.env.CF_PAGES_BRANCH || // Cloudflare Pages
-  process.env.HEAD || // Netlify
+  process.env.WORKERS_CI_BRANCH ||
+  process.env.CF_PAGES_BRANCH ||
+  process.env.HEAD ||
   "main";
+
+export const faqBlock = {
+  name: "faq",
+  label: "FAQ / Fragen & Antworten",
+  fields: [
+    {
+      type: "string",
+      name: "title",
+      label: "Überschrift",
+    },
+    {
+      type: "object",
+      name: "items",
+      label: "Fragen & Antworten",
+      list: true,
+      ui: {
+        itemProps: (item: { question?: string }) => ({
+          label: item?.question || "Neue Frage",
+        }),
+      },
+      fields: [
+        {
+          type: "string",
+          name: "question",
+          label: "Frage",
+        },
+        {
+          type: "string",
+          name: "answer",
+          label: "Antwort",
+          ui: {
+            component: "textarea",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 export default defineConfig({
   branch,
-
-  // Get this from tina.io
   clientId: process.env.PUBLIC_TINA_CLIENT_ID,
-  // Get this from tina.io
   token: process.env.TINA_TOKEN,
 
   build: {
@@ -30,7 +64,6 @@ export default defineConfig({
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
       BlogCollection,

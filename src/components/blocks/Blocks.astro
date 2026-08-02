@@ -3,13 +3,14 @@ import { tinaField } from '@tinacms/astro/tina-field';
 import Callout from './Callout.astro';
 import Content from './Content.astro';
 import Cta from './Cta.astro';
+import Faq from './Faq.astro';
 import Features from './Features.astro';
 import Hero from './Hero.astro';
+import Mitwirkende from './Mitwirkende.astro';
 import Split from './Split.astro';
 import Stats from './Stats.astro';
 import Testimonial from './Testimonial.astro';
 import Video from './Video.astro';
-import ConstellationDivider from '../space/ConstellationDivider.astro';
 import type { CmsPage } from '../../lib/data';
 
 interface Props {
@@ -18,25 +19,32 @@ interface Props {
 
 const { data } = Astro.props;
 const blocks = (data?.blocks ?? []).filter(b => b !== null);
+
+// Hier ermitteln wir die Komponenten vorab im Frontmatter
+const renderedBlocks = blocks.map((block) => {
+	console.log('Aktueller Block Typ:', block.__typename);
+	
+	switch (block.__typename) {
+		case 'PageBlocksCallout': return { block, Component: Callout };
+		case 'PageBlocksContent': return { block, Component: Content };
+		case 'PageBlocksCta': return { block, Component: Cta };
+		case 'PageBlocksFaq': return { block, Component: Faq };
+		case 'PageBlocksFeatures': return { block, Component: Features };
+		case 'PageBlocksHero': return { block, Component: Hero };
+		case 'PageBlocksMitwirkende': return { block, Component: Mitwirkende };
+		case 'PageBlocksSplit': return { block, Component: Split };
+		case 'PageBlocksStats': return { block, Component: Stats };
+		case 'PageBlocksTestimonial': return { block, Component: Testimonial };
+		case 'PageBlocksVideo': return { block, Component: Video };
+		default:
+			console.log('Unbekannter Block:', block.__typename);
+			return { block, Component: null };
+	}
+});
 ---
-{blocks.map((block, i) => {
-	const rendered = (() => {
-		switch (block.__typename) {
-			case 'PageBlocksCallout': return <Callout data={block} />;
-			case 'PageBlocksContent': return <Content data={block} />;
-			case 'PageBlocksCta': return <Cta data={block} />;
-			case 'PageBlocksFeatures': return <Features data={block} />;
-			case 'PageBlocksHero': return <Hero data={block} />;
-			case 'PageBlocksSplit': return <Split data={block} />;
-			case 'PageBlocksStats': return <Stats data={block} />;
-			case 'PageBlocksTestimonial': return <Testimonial data={block} />;
-			case 'PageBlocksVideo': return <Video data={block} />;
-		}
-	})();
-	return (
-		<>
-			<div data-tina-field={tinaField(block)}>{rendered}</div>
-			{i < blocks.length - 1 && <ConstellationDivider class="my-2 opacity-70" />}
-		</>
-	);
-})}
+
+{renderedBlocks.map(({ block, Component }) => (
+	<div data-tina-field={tinaField(block)}>
+		{Component ? <Component data={block} /> : null}
+	</div>
+))}
