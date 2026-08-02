@@ -21,14 +21,9 @@
   ],
   "contactLinks": [
     {
-      "title": "X",
-      "link": "https://x.com/tinacms",
-      "icon": "tabler:brand-x"
-    },
-    {
-      "title": "Docs",
-      "link": "https://tina.io/docs",
-      "icon": "tabler:book-2"
+      "title": "Instagram",
+      "link": "https://www.instagram.com/takepartnotspace/",
+      "icon": "tabler:instagram"
     },
     {
       "title": "GitHub",
