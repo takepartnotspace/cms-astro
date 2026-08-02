@@ -11,20 +11,20 @@
       "link": "/"
     },
     {
-      "title": "Städte & Aktionen",
-      "link": "/blog"
-    },
-    {
       "title": "Über uns",
       "link": "/about"
     },
     {
-      "title": "Presse",
-      "link": "/presse"
-    },
-    {
       "title": "Unterstützer",
       "link": "/Untersttzer"
+    },
+    {
+      "title": "Städte & Aktionen",
+      "link": "/blog"
+    },
+    {
+      "title": "Presse",
+      "link": "/presse"
     }
   ],
   "contactLinks": [
