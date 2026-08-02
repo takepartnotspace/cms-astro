@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/open-sans';
+@import '@fontsource-variable/source-sans-3';
 @plugin '@tailwindcss/typography';
 
 /* Drive the dark: variant from the .dark class */
@@ -7,16 +7,16 @@
 
 /* Metric-matched Fallback */
 @font-face {
-	font-family: 'Open Sans Fallback';
+	font-family: 'Source Sans Fallback';
 	src: local('Arial');
-	ascent-override: 106.89%;
-	descent-override: 29.30%;
+	ascent-override: 98.8%;
+	descent-override: 27.2%;
 	line-gap-override: 0%;
-	size-adjust: 99.16%;
+	size-adjust: 100%;
 }
 
 @theme inline {
-	--font-sans: 'Open Sans Variable', 'Open Sans Fallback', system-ui, sans-serif;
+	--font-sans: 'Source Sans 3 Variable', 'Source Sans Fallback', system-ui, sans-serif;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
@@ -74,13 +74,13 @@
 }
 
 .dark {
-	--background: oklch(0.18 0 0);
+	--background: oklch(0.18 0 0); /* #141414 */
 	--foreground: oklch(0.95 0.012 285);
 	--card: oklch(0.21 0 0);
 	--card-foreground: oklch(0.95 0.012 285);
 	--popover: oklch(0.21 0 0);
 	--popover-foreground: oklch(0.95 0.012 285);
-	--primary: oklch(0.67 0.13 325);
+	--primary: oklch(0.67 0.13 325); /* #C07EC1 */
 	--primary-foreground: oklch(0.98 0 0);
 	--secondary: oklch(0.24 0 0);
 	--secondary-foreground: oklch(0.95 0.012 285);
@@ -102,7 +102,7 @@
 		background-color: var(--background);
 		color: var(--foreground);
 		font-family: var(--font-sans);
-		font-size: 1.125rem; /* +2pt / 18px Basisgröße */
+		font-size: 1.125rem; /* +2pt Größeres Schriftbild */
 		line-height: 1.6;
 		margin: 0;
 		padding-top: 5rem;
