@@ -35,5 +35,6 @@
       "link": "https://tina.io/discord",
       "icon": "tabler:brand-discord"
     }
-  ]
+  ],
+  "footerStarfield": true
 }
