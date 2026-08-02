@@ -1,23 +1,22 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/inter';
+@import '@fontsource-variable/open-sans';
 @plugin '@tailwindcss/typography';
 
-/* Drive the dark: variant from the .dark class (toggled by ThemeToggle),
-   not the prefers-color-scheme media query. */
+/* Drive the dark: variant from the .dark class */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Metric-matched Arial fallback so the Inter swap doesn't reflow text (CLS). */
+/* Metric-matched Fallback */
 @font-face {
-	font-family: 'Inter Fallback';
+	font-family: 'Open Sans Fallback';
 	src: local('Arial');
-	ascent-override: 90.44%;
-	descent-override: 22.52%;
+	ascent-override: 106.89%;
+	descent-override: 29.30%;
 	line-gap-override: 0%;
-	size-adjust: 107.12%;
+	size-adjust: 99.16%;
 }
 
 @theme inline {
-	--font-sans: 'Inter Variable', 'Inter Fallback', system-ui, sans-serif;
+	--font-sans: 'Open Sans Variable', 'Open Sans Fallback', system-ui, sans-serif;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
@@ -55,7 +54,7 @@
 	--card-foreground: oklch(0.20 0.03 285);
 	--popover: oklch(1 0.002 285);
 	--popover-foreground: oklch(0.20 0.03 285);
-	--primary: oklch(0.67 0.13 325); /* #C07EC1 */
+	--primary: oklch(0.67 0.13 325);
 	--primary-foreground: oklch(0.99 0.005 285);
 	--secondary: oklch(0.96 0.01 285);
 	--secondary-foreground: oklch(0.30 0.04 285);
@@ -66,7 +65,7 @@
 	--destructive: oklch(0.577 0.245 27.325);
 	--border: oklch(0.90 0.012 285);
 	--input: oklch(0.90 0.012 285);
-	--ring: oklch(0.67 0.13 325); /* #C07EC1 */
+	--ring: oklch(0.67 0.13 325);
 	--chart-1: oklch(0.67 0.13 325);
 	--chart-2: oklch(0.6 0.118 184.704);
 	--chart-3: oklch(0.398 0.07 227.392);
@@ -75,13 +74,13 @@
 }
 
 .dark {
-	--background: oklch(0.18 0 0); /* #141414 */
+	--background: oklch(0.18 0 0);
 	--foreground: oklch(0.95 0.012 285);
 	--card: oklch(0.21 0 0);
 	--card-foreground: oklch(0.95 0.012 285);
 	--popover: oklch(0.21 0 0);
 	--popover-foreground: oklch(0.95 0.012 285);
-	--primary: oklch(0.67 0.13 325); /* #C07EC1 statt Orange */
+	--primary: oklch(0.67 0.13 325);
 	--primary-foreground: oklch(0.98 0 0);
 	--secondary: oklch(0.24 0 0);
 	--secondary-foreground: oklch(0.95 0.012 285);
@@ -92,7 +91,7 @@
 	--destructive: oklch(0.70 0.19 22);
 	--border: oklch(1 0 0 / 12%);
 	--input: oklch(1 0 0 / 15%);
-	--ring: oklch(0.67 0.13 325); /* #C07EC1 */
+	--ring: oklch(0.67 0.13 325);
 }
 
 @layer base {
@@ -103,6 +102,8 @@
 		background-color: var(--background);
 		color: var(--foreground);
 		font-family: var(--font-sans);
+		font-size: 1.125rem; /* +2pt / 18px Basisgröße */
+		line-height: 1.6;
 		margin: 0;
 		padding-top: 5rem;
 	}
@@ -111,7 +112,6 @@
 	}
 }
 
-/* Prose (blog body) follows the theme tokens so it inverts in dark mode */
 .prose {
 	--tw-prose-body: var(--foreground);
 	--tw-prose-headings: var(--foreground);
@@ -130,12 +130,5 @@
 	--tw-prose-pre-bg: var(--muted);
 	--tw-prose-th-borders: var(--border);
 	--tw-prose-td-borders: var(--border);
-}
-
-@keyframes twinkle {
-	0%, 100% { opacity: 0.25; }
-	50% { opacity: 0.9; }
-}
-@media (prefers-reduced-motion: no-preference) {
-	.star-twinkle { animation: twinkle var(--twinkle-dur, 4s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+	font-size: 1.125rem;
 }
