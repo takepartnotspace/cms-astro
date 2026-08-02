@@ -26,9 +26,9 @@
       "icon": "tabler:instagram"
     },
     {
-      "title": "GitHub",
-      "link": "https://github.com/tinacms/tinacms",
-      "icon": "tabler:brand-github"
+      "title": "E-Mail",
+      "link": "mailto:hello@takepartnotspace.org",
+      "icon": "tabler:brand-mail"
     },
     {
       "title": "Discord",
