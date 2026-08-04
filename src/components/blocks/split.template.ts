@@ -1,14 +1,19 @@
 import type { Template } from 'tinacms';
-import type { Action } from '../../lib/data';
 
 export const splitBlockSchema: Template = {
 	name: 'split',
 	label: 'Split (Text + Image)',
 	fields: [
 		{ type: 'string', label: 'Title', name: 'title' },
-		{ type: 'rich-text', label: 'Body', name: 'body' },
+		{ 
+			type: 'rich-text', 
+			label: 'Body', 
+			name: 'body',
+		},
 		{
-			type: 'object', label: 'Image', name: 'image',
+			type: 'object', 
+			label: 'Image', 
+			name: 'image',
 			fields: [
 				{ name: 'src', label: 'Image Source', type: 'image' },
 				{ name: 'alt', label: 'Alt Text', type: 'string' },
@@ -16,10 +21,13 @@ export const splitBlockSchema: Template = {
 		},
 		{ type: 'boolean', label: 'Image on left', name: 'reverse' },
 		{
-			type: 'object', label: 'Actions', name: 'actions', list: true,
+			type: 'object', 
+			label: 'Actions', 
+			name: 'actions', 
+			list: true,
 			ui: { 
-				defaultItem: { label: 'Learn more', type: 'button', link: '/' }, 
-				itemProps: (i?: Action) => ({ label: i?.label ? i.label : 'Aktion' }) 
+				defaultItem: { label: 'Learn more', type: 'button', link: '/' },
+				itemProps: (item) => ({ label: item?.label ? item.label : 'Aktion' }) 
 			},
 			fields: [
 				{ type: 'string', label: 'Label', name: 'label' },
@@ -32,7 +40,6 @@ export const splitBlockSchema: Template = {
 	ui: {
 		defaultItem: {
 			title: 'A headline that sits beside your image',
-			body: 'Describe the feature or story here, with a supporting image right alongside it.',
 		},
 		itemProps: (item) => ({
 			label: item?.title ? item.title : 'Split-Block',
