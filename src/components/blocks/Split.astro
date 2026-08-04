@@ -12,20 +12,19 @@ import type { SplitBlock } from '../../lib/data';
 interface Props { data: SplitBlock }
 
 const { data } = Astro.props;
-const actions = (data.actions ?? []).filter(a => a !== null);
+const actions = (data.actions ?? []).filter(a => a && a.label);
 
 const customComponents = {
   ...mdxComponents,
-  p: AutoTooltipText,
+  p: AutoTooltipText || 'p',
 };
 ---
 <Section>
 	<div class="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2 md:gap-16 px-4">
-		<div class={cn('space-y-6 text-left', data.reverse && 'md:order-2')}>
-			{data.title && <h2 data-tina-field={tinaField(data, 'title')} class="text-left text-balance text-4xl font-semibold sm:text-5xl lg:text-6xl tracking-tight">{data.title}</h2>}
+		<div class={cn('space-y-6 text-left', data?.reverse && 'md:order-2')}>
+			{data?.title && <h2 data-tina-field={tinaField(data, 'title')} class="text-left text-balance text-4xl font-semibold sm:text-5xl lg:text-6xl tracking-tight">{data.title}</h2>}
 			
-			{/* prose-p:text-muted-foreground zwingt die Absätze explizit in das helle Grau */}
-			{data.body && (
+			{data?.body && (
 				<div data-tina-field={tinaField(data, 'body')} class="max-w-none text-left text-xl sm:text-2xl text-muted-foreground leading-snug [&_*]:text-left [&_p]:text-muted-foreground space-y-4">
 					<TinaMarkdown content={data.body} components={customComponents} />
 				</div>
@@ -45,7 +44,7 @@ const customComponents = {
 			)}
 		</div>
 		
-		{data.image?.src && (
+		{data?.image?.src && (
 			<div data-tina-field={tinaField(data, 'image')} class="bg-background overflow-hidden rounded-2xl border p-2 shadow-lg">
 				<img src={data.image.src} alt={data.image.alt ?? ''} width="1200" height="900" class="aspect-[4/3] w-full rounded-xl border border-border/25 object-cover" />
 			</div>
