@@ -1,4 +1,5 @@
 import type { Template } from 'tinacms';
+import type { Action } from '../../lib/data';
 
 export const splitBlockSchema: Template = {
 	name: 'split',
@@ -16,6 +17,7 @@ export const splitBlockSchema: Template = {
 		{ type: 'boolean', label: 'Image on left', name: 'reverse' },
 		{
 			type: 'object', label: 'Actions', name: 'actions', list: true,
+			ui: { defaultItem: { label: 'Learn more', type: 'button', link: '/' }, itemProps: (i: Action) => ({ label: i.label ?? '' }) },
 			fields: [
 				{ type: 'string', label: 'Label', name: 'label' },
 				{ type: 'string', label: 'Type', name: 'type', options: [{ label: 'Button', value: 'button' }, { label: 'Link', value: 'link' }] },
@@ -24,4 +26,10 @@ export const splitBlockSchema: Template = {
 			],
 		},
 	],
+	ui: {
+		defaultItem: {
+			title: 'A headline that sits beside your image',
+			body: 'Describe the feature or story here, with a supporting image right alongside it.',
+		},
+	},
 };
