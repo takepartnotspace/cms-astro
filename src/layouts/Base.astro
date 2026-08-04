@@ -20,9 +20,18 @@ const config = (await getConfig()).data?.config ?? null;
 <!doctype html>
 <html lang="de" class="dark">
 	<head>
+		<!-- Font Preload: Verhindert das Hüpfen der Schrift beim Laden -->
+		<link 
+			rel="preload" 
+			href="/fonts/SourceSans3-Regular.woff2" 
+			as="font" 
+			type="font/woff2" 
+			crossorigin 
+		/>
+
 		<BaseHead title={title} description={description} image={image} />
 
-		<!-- Favicon Configuration -->
+		<!-- Favicons -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
 		<link rel="shortcut icon" href="/favicon.ico" />
