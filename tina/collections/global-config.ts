@@ -22,7 +22,7 @@ export const GlobalConfigCollection: Collection = {
           type: "string",
           required: true,
           description:
-            "Shown in the header navigation on every page. Lives in Global Config because it's the same site-wide — each page sets its own browser title via the Meta Title field on the page, and this Site Name is used as the fallback if a page is ever missing one.",
+            "Shown in the header navigation on every page.",
         },
         {
           name: "description",
@@ -35,12 +35,9 @@ export const GlobalConfigCollection: Collection = {
         {
           name: "siteOwner",
           label: "Site Owner (shown in footer)",
-          required: true,
           type: "string",
+          required: true,
           description: "Your name or company name. Displayed in the site footer.",
-          ui: {
-            defaultValue: "Your name here"
-          },
         },
         {
           name: "logo",
@@ -54,13 +51,13 @@ export const GlobalConfigCollection: Collection = {
       name: "nav",
       label: "Navigation Menu",
       description:
-        "Links shown in the header navigation. Reorder, add, or remove items below. The Site Name shown to the left of these links is set in Site Identity & SEO above.",
+        "Links shown in the header navigation. Reorder, add, or remove items below.",
       type: "object",
       list: true,
       ui: {
         itemProps: (item) => {
           return {
-            label: item?.title || "Neuer Link"
+            label: item?.title ? item.title : "Neuer Navigationslink",
           };
         },
       },
@@ -70,16 +67,16 @@ export const GlobalConfigCollection: Collection = {
           label: "Link Label",
           description: "The text shown in the nav for this link.",
           type: "string",
-          required: true
+          required: true,
         },
         {
           name: "link",
           label: "Link URL",
           description: "Where this nav item points (e.g. /about or https://example.com).",
           type: "string",
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     {
       name: "contactLinks",
@@ -89,7 +86,7 @@ export const GlobalConfigCollection: Collection = {
       ui: {
         itemProps: (item) => {
           return {
-            label: item?.title || "Neuer Kontakt-Link"
+            label: item?.title ? item.title : "Neuer Kontaktlink",
           };
         },
       },
@@ -97,25 +94,26 @@ export const GlobalConfigCollection: Collection = {
         {
           name: "title",
           label: "Title",
-          type: "string"
+          type: "string",
         },
         {
           name: "link",
           label: "Link",
-          type: "string"
+          type: "string",
         },
         {
           name: "icon",
           label: "Icon",
-          description: "Any Tabler icon name, e.g. tabler:brand-x, tabler:book-2, tabler:brand-github. Browse at https://icones.js.org/collection/tabler",
-          type: "string"
-        }
+          description:
+            "Any Tabler icon name, e.g. tabler:brand-x, tabler:brand-instagram, tabler:mail.",
+          type: "string",
+        },
       ],
     },
     {
       name: "footerStarfield",
       label: "Show starfield in footer",
       type: "boolean",
-    }
-  ]
+    },
+  ],
 };
