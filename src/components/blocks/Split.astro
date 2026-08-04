@@ -1,53 +1,27 @@
----
-import { tinaField } from '@tinacms/astro/tina-field';
-import TinaMarkdown from '@tinacms/astro/TinaMarkdown.astro';
-import Section from '../ui/Section.astro';
-import AutoTooltipText from '../AutoTooltipText.astro';
-import { mdxComponents } from '../mdx/components';
-import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-import { cn } from '../../lib/cn';
-import type { SplitBlock } from '../../lib/data';
+import type { Template } from 'tinacms';
 
-interface Props { data: SplitBlock }
-
-const { data } = Astro.props;
-const actions = (data.actions ?? []).filter(a => a && a.label);
-
-const customComponents = {
-  ...mdxComponents,
-  p: AutoTooltipText || 'p',
+export const splitBlockSchema: Template = {
+	name: 'split',
+	label: 'Split (Text + Image)',
+	fields: [
+		{ type: 'string', label: 'Title', name: 'title' },
+		{ type: 'rich-text', label: 'Body', name: 'body' },
+		{
+			type: 'object', label: 'Image', name: 'image',
+			fields: [
+				{ name: 'src', label: 'Image Source', type: 'image' },
+				{ name: 'alt', label: 'Alt Text', type: 'string' },
+			],
+		},
+		{ type: 'boolean', label: 'Image on left', name: 'reverse' },
+		{
+			type: 'object', label: 'Actions', name: 'actions', list: true,
+			fields: [
+				{ type: 'string', label: 'Label', name: 'label' },
+				{ type: 'string', label: 'Type', name: 'type', options: [{ label: 'Button', value: 'button' }, { label: 'Link', value: 'link' }] },
+				{ type: 'string', label: 'Icon (Tabler name)', name: 'icon' },
+				{ type: 'string', label: 'Link', name: 'link' },
+			],
+		},
+	],
 };
----
-<Section>
-	<div class="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2 md:gap-16 px-4">
-		<div class={cn('space-y-6 text-left', data?.reverse && 'md:order-2')}>
-			{data?.title && <h2 data-tina-field={tinaField(data, 'title')} class="text-left text-balance text-4xl font-semibold sm:text-5xl lg:text-6xl tracking-tight">{data.title}</h2>}
-			
-			{data?.body && (
-				<div data-tina-field={tinaField(data, 'body')} class="max-w-none text-left text-xl sm:text-2xl text-muted-foreground leading-snug [&_*]:text-left [&_p]:text-muted-foreground space-y-4">
-					<TinaMarkdown content={data.body} components={customComponents} />
-				</div>
-			)}
-			
-			{actions.length > 0 && (
-				<div class="flex flex-wrap justify-start gap-3 pt-2">
-					{actions.map((action) => (
-						<div data-tina-field={tinaField(action)} class="bg-foreground/10 rounded-2xl border p-0.5">
-							<Button href={action.link} size="lg" variant={action.type === 'link' ? 'ghost' : 'default'} class="rounded-xl px-5 text-base">
-								{action.icon && <Icon name={action.icon} class="size-4" />}
-								<span class="text-nowrap">{action.label}</span>
-							</Button>
-						</div>
-					))}
-				</div>
-			)}
-		</div>
-		
-		{data?.image?.src && (
-			<div data-tina-field={tinaField(data, 'image')} class="bg-background overflow-hidden rounded-2xl border p-2 shadow-lg">
-				<img src={data.image.src} alt={data.image.alt ?? ''} width="1200" height="900" class="aspect-[4/3] w-full rounded-xl border border-border/25 object-cover" />
-			</div>
-		)}
-	</div>
-</Section>
