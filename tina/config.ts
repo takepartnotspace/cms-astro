@@ -26,8 +26,8 @@ export const faqBlock = {
       label: "Fragen & Antworten",
       list: true,
       ui: {
-        itemProps: (item: { question?: string }) => ({
-          label: item?.question || "Neue Frage",
+        itemProps: (item: any) => ({
+          label: item?.question ? item.question : "Neue Frage",
         }),
       },
       fields: [
