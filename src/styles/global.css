@@ -18,7 +18,8 @@
 
 @theme inline {
     --font-sans: 'Source Sans 3 Variable', 'Source Sans Fallback', system-ui, sans-serif;
-    --font-code: 'Source Code Pro Variable', monospace;
+    --font-code: 'Source Code Pro Variable', 'Source Code Pro', monospace;
+    --font-mono: 'Source Code Pro Variable', 'Source Code Pro', monospace;
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -93,22 +94,6 @@
         margin: 0;
         padding-top: 5rem;
         position: relative;
-    }
-
-    /* Zuweisung der Monospace-Schriftart für alle Navigations-Varianten (Desktop + Mobil) und Buttons */
-    nav a,
-    header nav a,
-    [role="navigation"] a,
-    .mobile-nav a,
-    .nav-link,
-    button,
-    .button,
-    .btn,
-    a[class*="btn"],
-    a[class*="button"],
-    input[type="submit"],
-    input[type="button"] {
-        font-family: var(--font-code) !important;
     }
 
     /* Globales Noise-Overlay über der gesamten Seite (inkl. Hero-Verlauf) */
@@ -202,4 +187,20 @@
     font-size: 1.5rem !important;
     line-height: 1.4 !important;
     margin-bottom: 1.75rem !important;
+}
+
+/* Monospace-Schriftart für Navigation, Buttons & Formular-Elemente */
+nav a,
+header nav a,
+[role="navigation"] a,
+.mobile-nav a,
+.nav-link,
+button,
+.button,
+.btn,
+a[class*="btn"],
+a[class*="button"],
+input[type="submit"],
+input[type="button"] {
+    font-family: var(--font-code), monospace !important;
 }
