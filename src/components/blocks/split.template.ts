@@ -6,12 +6,9 @@ export const splitBlockSchema: Template = {
 	fields: [
 		{ type: 'string', label: 'Title', name: 'title' },
 		{ 
-			type: 'string', 
+			type: 'rich-text', 
 			label: 'Body', 
 			name: 'body',
-			ui: {
-				component: 'textarea',
-			},
 		},
 		{
 			type: 'object', 
