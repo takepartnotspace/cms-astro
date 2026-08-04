@@ -95,13 +95,20 @@
         position: relative;
     }
 
-    /* Zuweisung der Monospace-Schriftart für Navigation und Buttons */
+    /* Zuweisung der Monospace-Schriftart für alle Navigations-Varianten (Desktop + Mobil) und Buttons */
     nav a,
     header nav a,
+    [role="navigation"] a,
+    .mobile-nav a,
+    .nav-link,
     button,
     .button,
-    a.btn {
-        font-family: var(--font-code);
+    .btn,
+    a[class*="btn"],
+    a[class*="button"],
+    input[type="submit"],
+    input[type="button"] {
+        font-family: var(--font-code) !important;
     }
 
     /* Globales Noise-Overlay über der gesamten Seite (inkl. Hero-Verlauf) */
