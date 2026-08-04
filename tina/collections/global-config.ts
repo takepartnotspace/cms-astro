@@ -43,12 +43,11 @@ export const GlobalConfigCollection: Collection = {
           },
         },
         {
-          name: 'logo',
-          label: 'Logo',
-          type: 'image',
-          description: 'Shown next to the Site Name in the header navigation.',
+          name: "logo",
+          label: "Logo",
+          type: "image",
+          description: "Shown next to the Site Name in the header navigation.",
         }
-        //Add more site settings here...
       ],
     },
     {
@@ -61,7 +60,7 @@ export const GlobalConfigCollection: Collection = {
       ui: {
         itemProps: (item) => {
           return {
-            label: item.title
+            label: item?.title || "Neuer Link"
           };
         },
       },
@@ -79,7 +78,6 @@ export const GlobalConfigCollection: Collection = {
           description: "Where this nav item points (e.g. /about or https://example.com).",
           type: "string",
           required: true
-
         }
       ]
     },
@@ -91,8 +89,8 @@ export const GlobalConfigCollection: Collection = {
       ui: {
         itemProps: (item) => {
           return {
-            label: item.title
-          }
+            label: item?.title || "Neuer Kontakt-Link"
+          };
         },
       },
       fields: [
@@ -119,7 +117,5 @@ export const GlobalConfigCollection: Collection = {
       label: "Show starfield in footer",
       type: "boolean",
     }
-
-    // Add other config fields here...
   ]
-}
+};
