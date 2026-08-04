@@ -5,15 +5,9 @@ export const splitBlockSchema: Template = {
 	label: 'Split (Text + Image)',
 	fields: [
 		{ type: 'string', label: 'Title', name: 'title' },
-		{ 
-			type: 'rich-text', 
-			label: 'Body', 
-			name: 'body',
-		},
+		{ type: 'rich-text', label: 'Body', name: 'body' },
 		{
-			type: 'object', 
-			label: 'Image', 
-			name: 'image',
+			type: 'object', label: 'Image', name: 'image',
 			fields: [
 				{ name: 'src', label: 'Image Source', type: 'image' },
 				{ name: 'alt', label: 'Alt Text', type: 'string' },
@@ -21,14 +15,7 @@ export const splitBlockSchema: Template = {
 		},
 		{ type: 'boolean', label: 'Image on left', name: 'reverse' },
 		{
-			type: 'object', 
-			label: 'Actions', 
-			name: 'actions', 
-			list: true,
-			ui: { 
-				defaultItem: { label: 'Learn more', type: 'button', link: '/' },
-				itemProps: (item) => ({ label: item?.label ? item.label : 'Aktion' }) 
-			},
+			type: 'object', label: 'Actions', name: 'actions', list: true,
 			fields: [
 				{ type: 'string', label: 'Label', name: 'label' },
 				{ type: 'string', label: 'Type', name: 'type', options: [{ label: 'Button', value: 'button' }, { label: 'Link', value: 'link' }] },
@@ -37,12 +24,4 @@ export const splitBlockSchema: Template = {
 			],
 		},
 	],
-	ui: {
-		defaultItem: {
-			title: 'A headline that sits beside your image',
-		},
-		itemProps: (item) => ({
-			label: item?.title ? item.title : 'Split-Block',
-		}),
-	},
 };
