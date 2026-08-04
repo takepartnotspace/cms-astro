@@ -1,3 +1,7 @@
+:root {
+    --fontsource-font-display: block;
+}
+
 @import 'tailwindcss';
 @import '@fontsource-variable/source-sans-3';
 @import '@fontsource-variable/source-code-pro';
