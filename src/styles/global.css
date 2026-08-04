@@ -118,6 +118,14 @@
     .bg-default {
         background-color: var(--background);
     }
+
+    /* Standard-Formularelemente erben die Monospace-Schrift */
+    button,
+    input,
+    select,
+    textarea {
+        font-family: var(--font-code), monospace;
+    }
 }
 
 /* Speziell für Impressum & Inhaltsseiten (Prose Dark-Fix) */
@@ -189,9 +197,10 @@
     margin-bottom: 1.75rem !important;
 }
 
-/* Monospace-Schriftart für Navigation, Buttons & Formular-Elemente */
+/* Monospace-Schriftart für Navigation, Buttons, Links & Footer */
 nav a,
 header nav a,
+footer a,
 [role="navigation"] a,
 .mobile-nav a,
 .nav-link,
@@ -201,6 +210,7 @@ button,
 a[class*="btn"],
 a[class*="button"],
 input[type="submit"],
-input[type="button"] {
-    font-family: var(--font-code), monospace !important;
+input[type="button"],
+[class*="button"] {
+    font-family: var(--font-code), 'Source Code Pro', monospace !important;
 }
