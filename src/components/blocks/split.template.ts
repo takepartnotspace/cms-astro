@@ -6,10 +6,12 @@ export const splitBlockSchema: Template = {
 	fields: [
 		{ type: 'string', label: 'Title', name: 'title' },
 		{ 
-			type: 'rich-text', 
+			type: 'string', 
 			label: 'Body', 
 			name: 'body',
-			isBody: false,
+			ui: {
+				component: 'textarea',
+			},
 		},
 		{
 			type: 'object', 
@@ -26,10 +28,6 @@ export const splitBlockSchema: Template = {
 			label: 'Actions', 
 			name: 'actions', 
 			list: true,
-			ui: { 
-				defaultItem: { label: 'Learn more', type: 'button', link: '/' },
-				itemProps: (item) => ({ label: item?.label || 'Aktion' }) 
-			},
 			fields: [
 				{ type: 'string', label: 'Label', name: 'label' },
 				{ type: 'string', label: 'Type', name: 'type', options: [{ label: 'Button', value: 'button' }, { label: 'Link', value: 'link' }] },
@@ -38,12 +36,4 @@ export const splitBlockSchema: Template = {
 			],
 		},
 	],
-	ui: {
-		defaultItem: {
-			title: 'Neuer Split Block',
-		},
-		itemProps: (item) => ({
-			label: item?.title || 'Split Block',
-		}),
-	},
 };
