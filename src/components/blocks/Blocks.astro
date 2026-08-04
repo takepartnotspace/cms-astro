@@ -1,50 +1,215 @@
----
-import { tinaField } from '@tinacms/astro/tina-field';
-import Callout from './Callout.astro';
-import Content from './Content.astro';
-import Cta from './Cta.astro';
-import Faq from './Faq.astro';
-import Features from './Features.astro';
-import Hero from './Hero.astro';
-import Mitwirkende from './Mitwirkende.astro';
-import Split from './Split.astro';
-import Stats from './Stats.astro';
-import Testimonial from './Testimonial.astro';
-import Video from './Video.astro';
-import type { CmsPage } from '../../lib/data';
+@import 'tailwindcss';
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/source-code-pro';
+@plugin '@tailwindcss/typography';
 
-interface Props {
-	data?: CmsPage | null;
+/* Drive the dark: variant from the .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Metric-matched Fallback */
+@font-face {
+    font-family: 'Source Sans Fallback';
+    src: local('Arial');
+    ascent-override: 98.8%;
+    descent-override: 27.2%;
+    line-gap-override: 0%;
+    size-adjust: 100%;
 }
 
-const { data } = Astro.props;
-const blocks = (data?.blocks ?? []).filter(b => b !== null);
+@theme inline {
+    --font-sans: 'Source Sans 3 Variable', 'Source Sans Fallback', system-ui, sans-serif;
+    --font-code: 'Source Code Pro Variable', 'Source Code Pro', monospace;
+    --font-mono: 'Source Code Pro Variable', 'Source Code Pro', monospace;
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    
+    /* Akzentfarben (Violett) */
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
 
-// Hier ermitteln wir die Komponenten vorab im Frontmatter
-const renderedBlocks = blocks.map((block) => {
-	console.log('Aktueller Block Typ:', block.__typename);
-	
-	switch (block.__typename) {
-		case 'PageBlocksCallout': return { block, Component: Callout };
-		case 'PageBlocksContent': return { block, Component: Content };
-		case 'PageBlocksCta': return { block, Component: Cta };
-		case 'PageBlocksFaq': return { block, Component: Faq };
-		case 'PageBlocksFeatures': return { block, Component: Features };
-		case 'PageBlocksHero': return { block, Component: Hero };
-		case 'PageBlocksMitwirkende': return { block, Component: Mitwirkende };
-		case 'PageBlocksSplit': return { block, Component: Split };
-		case 'PageBlocksStats': return { block, Component: Stats };
-		case 'PageBlocksTestimonial': return { block, Component: Testimonial };
-		case 'PageBlocksVideo': return { block, Component: Video };
-		default:
-			console.log('Unbekannter Block:', block.__typename);
-			return { block, Component: null };
-	}
-});
----
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+}
 
-{renderedBlocks.map(({ block, Component }) => (
-	<div data-tina-field={tinaField(block)}>
-		{Component ? <Component data={block} /> : null}
-	</div>
-))}
+:root {
+    --radius: 0.625rem;
+    
+    /* Dark Theme als Standard (:root überschrieben) */
+    --background: oklch(0.18 0 0); /* #141414 */
+    --foreground: oklch(0.95 0.012 285);
+    --card: oklch(0.18 0 0);
+    --card-foreground: oklch(0.95 0.012 285);
+    --popover: oklch(0.18 0 0);
+    --popover-foreground: oklch(0.95 0.012 285);
+    
+    --primary: oklch(0.42 0.15 325);
+    --primary-foreground: oklch(0.98 0 0);
+    --secondary: oklch(0.28 0.14 325);
+    --secondary-foreground: oklch(0.95 0.012 285);
+
+    --muted: oklch(0.24 0 0);
+    --muted-foreground: oklch(0.72 0.03 285);
+    --accent: oklch(0.26 0 0);
+    --accent-foreground: oklch(0.95 0.012 285);
+    --destructive: oklch(0.70 0.19 22);
+    --border: oklch(1 0 0 / 12%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.42 0.15 325);
+    --chart-1: oklch(0.42 0.15 325);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+}
+
+@layer base {
+    * {
+        border-color: var(--border);
+    }
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-sans);
+        margin: 0;
+        padding-top: 5rem;
+        position: relative;
+    }
+
+    /* Globales Noise-Overlay über der gesamten Seite (inkl. Hero-Verlauf) */
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 99; /* Gewährleistet, dass es über allen Hintergründen liegt */
+        pointer-events: none; /* Blockiert keine Klicks oder Interaktionen */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.05; /* Dezent über die gesamte Seite gelegt */
+        mix-blend-mode: overlay;
+    }
+
+    /* Extra Abstand zur Navigation am Desktop */
+    @media (min-width: 768px) {
+        body {
+            padding-top: 5.75rem;
+        }
+    }
+
+    .bg-default {
+        background-color: var(--background);
+    }
+
+    /* Standard-Formularelemente erben die Monospace-Schrift */
+    button,
+    input,
+    select,
+    textarea {
+        font-family: var(--font-code), monospace;
+    }
+}
+
+/* Speziell für Impressum & Inhaltsseiten (Prose Dark-Fix) */
+.prose {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--foreground) !important;
+    
+    /* Zwingt Tailwind Typography auf helle Schriftfarben */
+    --tw-prose-body: var(--foreground);
+    --tw-prose-headings: var(--foreground);
+    --tw-prose-lead: var(--muted-foreground);
+    --tw-prose-links: var(--primary);
+    --tw-prose-bold: var(--foreground);
+    --tw-prose-counters: var(--muted-foreground);
+    --tw-prose-bullets: var(--muted-foreground);
+    --tw-prose-hr: var(--border);
+    --tw-prose-quotes: var(--foreground);
+}
+
+.prose h1, 
+.prose h2, 
+.prose h3, 
+.prose h4, 
+.prose strong {
+    color: var(--foreground) !important;
+}
+
+.prose a {
+    color: var(--foreground);
+    text-decoration: underline;
+}
+
+.prose a:hover {
+    color: var(--primary);
+}
+
+/* Optimierter Abstand für Fließtext-Absätze */
+.prose p {
+    color: var(--foreground) !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;  /* Ausgewogener Abstand zwischen den Absätzen */
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;        /* Leicht reduzierter Zeilenabstand für ein besseres Schriftbild */
+}
+
+/* Letzter Absatz benötigt keinen Abstand nach unten */
+.prose p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Großen Abstand erzeugen, wenn ein Paragraph NUR fett gedruckten Text enthält */
+.prose p:has(> strong:only-child) {
+    margin-top: 2.25rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* H1-Überschrift */
+.prose h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 1.75rem !important;
+}
+
+.prose .lead, p.lead {
+    font-size: 1.5rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 1.75rem !important;
+}
+
+/* Aggressives Überschreiben aller Button- und Navigationstypen */
+nav a,
+header nav a,
+[role="navigation"] a,
+.mobile-nav a,
+.nav-link,
+button,
+.button,
+.btn,
+a[class*="btn"],
+a[class*="button"],
+input[type="submit"],
+input[type="button"],
+[class*="button"] {
+    font-family: var(--font-code), 'Source Code Pro', monospace !important;
+}
