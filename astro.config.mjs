@@ -14,7 +14,9 @@ import tailwindcss from '@tailwindcss/vite';
 // local `wrangler deploy`) falls back to a portable Node server. Set
 // DEPLOY_ADAPTER to force a specific adapter when no env var applies.
 async function getAdapter() {
-	const vercel = async () => (await import('@astrojs/vercel')).default();
+	const vercel = async () => (await import('@astrojs/vercel')).default({
+		webAnalytics: { enabled: true }
+	});
 	const cloudflare = async () => (await import('@astrojs/cloudflare')).default();
 	const netlify = async () => (await import('@astrojs/netlify')).default();
 	const nodeStandalone = async () =>

@@ -6,6 +6,7 @@ import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import { getConfig } from '../lib/data';
 import { islands } from '../lib/islands';
 import Noise from '../components/ui/Noise.astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
 	title: string;
@@ -52,5 +53,7 @@ const config = (await getConfig()).data?.config ?? null;
 		<TinaIsland name="global-footer" wrapper={islands['global-footer'].wrapper}>
 			<Footer config={config} />
 		</TinaIsland>
+
+		<Analytics />
 	</body>
 </html>
